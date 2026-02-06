@@ -1,0 +1,26 @@
+name: Sync News Data
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour automatically
+  workflow_dispatch:      # Adds a manual "Run" button
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Fetch Data from Vercel
+        run: |
+          curl -s https://tradersj.vercel.app/news/news-feed-pr-2810 -o data/FOREX_NEWS.csv
+
+      - name: Push to GitHub
+        run: |
+          git config --global user.name "News-Bot"
+          git config --global user.email "bot@tradersj.app"
+          git add data/FOREX_NEWS.csv
+          git commit -m "Update news from Vercel" || exit 0
+          git push
