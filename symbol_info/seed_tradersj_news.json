@@ -1,0 +1,8 @@
+{
+    "symbol": ["FOREX_NEWS"],
+    "description": ["Forex Factory News"],
+    "pricescale": [100],
+    "type": ["economic"],
+    "session": ["24x7"],
+    "timezone": ["Etc/UTC"]
+}
